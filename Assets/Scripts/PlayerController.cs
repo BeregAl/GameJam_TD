@@ -24,10 +24,13 @@ public class PlayerController : MonoBehaviour
             //Ray ray = new Ray(Camera.main.ScreenToWorldPoint(Input.mousePosition), target.transform.position - transform.position);
             //пускаем луч
             Physics.Raycast(ray, out hit);
-            if (hit.collider.name == "Cube")
+            if (hit.collider != null)
             {
-                GameController.instance.CreateNode(hit.point);
+                if (hit.collider.name == "Cube")
+                {
+                    GameController.instance.CreateNode(hit.point);
 
+                }
             }
         }
         

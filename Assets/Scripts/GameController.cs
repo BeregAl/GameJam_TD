@@ -41,8 +41,7 @@ public class GameController : MonoBehaviour
 
     public void StartWave(WaveInfo _wave)
     {
-        GameObject goTmp = Instantiate(_wave.waves[0].hi.humanPrefab);
-        StartCoroutine(HumanTravelling(goTmp, _wave.waves[0].hi.speed));
+        StartCoroutine(SpawningCoroutine());
     }
 
     public void CreateNode(Vector3 pos)
@@ -58,6 +57,16 @@ public class GameController : MonoBehaviour
         roads.Add(roadTmp);
     }
 
+    IEnumerator SpawningCoroutine()
+    {
+        for (int i = 0; i < wave.waves[0].amount; i++)
+        {
+            GameObject goTmp = Instantiate(wave.waves[0].hi.humanPrefab);
+            StartCoroutine(HumanTravelling(goTmp, wave.waves[0].hi.speed));
+            yield return new WaitForSeconds(0.5f);
+        }
+
+    }
     
     IEnumerator HumanTravelling(GameObject human, float speed)
     {
