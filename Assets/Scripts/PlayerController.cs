@@ -25,7 +25,7 @@ public class PlayerController : MonoBehaviour
             //сюда запишется инфо о пересечении луча, если оно будет
             RaycastHit hit;
             //сам луч, начинается от позиции этого объекта и направлен в сторону цели
-            Ray ray = new Ray(Camera.main.ScreenPointToRay(Input.mousePosition));
+            Ray ray =  Camera.main.ScreenPointToRay(Input.mousePosition);
             //Ray ray = new Ray(Camera.main.ScreenToWorldPoint(Input.mousePosition), target.transform.position - transform.position);
             //пускаем луч
             Physics.Raycast(ray, out hit);
