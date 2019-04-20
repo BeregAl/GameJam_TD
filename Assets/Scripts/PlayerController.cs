@@ -17,23 +17,47 @@ public class PlayerController : MonoBehaviour
 
         if (Input.GetMouseButtonDown(0))
         {
-            //сюда запишется инфо о пересечении луча, если оно будет
-            RaycastHit hit;
-            //сам луч, начинается от позиции этого объекта и направлен в сторону цели
-            Ray ray =  Camera.main.ScreenPointToRay(Input.mousePosition);
-            //Ray ray = new Ray(Camera.main.ScreenToWorldPoint(Input.mousePosition), target.transform.position - transform.position);
-            //пускаем луч
-            Physics.Raycast(ray, out hit);
-            if (hit.collider != null)
+            if (GameController.instance.nodesCount < 5)
             {
-                if (hit.collider.name == "Cube")
+                //сюда запишется инфо о пересечении луча, если оно будет
+                RaycastHit hit;
+                //сам луч, начинается от позиции этого объекта и направлен в сторону цели
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                //Ray ray = new Ray(Camera.main.ScreenToWorldPoint(Input.mousePosition), target.transform.position - transform.position);
+                //пускаем луч
+                Physics.Raycast(ray, out hit);
+                if (hit.collider != null)
                 {
-                    GameController.instance.CreateNode(hit.point);
+                    if (hit.collider.name == "Cube")
+                    {
+                        GameController.instance.CreateNode(hit.point);
 
+                    }
                 }
             }
         }
-        
+        else if (Input.GetMouseButtonDown(1))
+        {
+            if (GameController.instance.towersCount<3)
+            {
+                //сюда запишется инфо о пересечении луча, если оно будет
+                RaycastHit hit;
+                //сам луч, начинается от позиции этого объекта и направлен в сторону цели
+                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                //Ray ray = new Ray(Camera.main.ScreenToWorldPoint(Input.mousePosition), target.transform.position - transform.position);
+                //пускаем луч
+                Physics.Raycast(ray, out hit);
+                if (hit.collider != null)
+                {
+                    if (hit.collider.name == "Cube")
+                    {
+                        GameController.instance.CreateTower(hit.point);
+
+                    }
+                }
+            }
+        }
+
     }
 
 }

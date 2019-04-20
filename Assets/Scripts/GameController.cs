@@ -17,8 +17,11 @@ public class GameController : MonoBehaviour
     [SerializeField]
     private GameObject roadPrefab;
 
-    List<GameObject> nodes = new List<GameObject>();
+    public List<GameObject> nodes = new List<GameObject>();
     List<GameObject> roads = new List<GameObject>();
+
+    public int towersCount = 0;
+    public int nodesCount = 0;
 
     void Awake()
     {
@@ -30,7 +33,7 @@ public class GameController : MonoBehaviour
     {
         nodes.Add(Instantiate(nodePrefab));
         nodes[0].transform.position = new Vector3(0, 0.5f, 0);
-
+        nodesCount++;
     }
 
     // Update is called once per frame
@@ -55,6 +58,23 @@ public class GameController : MonoBehaviour
         //Debug.Log("Distance between nodes: " + Vector3.Distance(nodes[nodes.Count - 1].transform.position, nodes[nodes.Count - 2].transform.position));
         roadTmp.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(1.33f, Vector3.Distance(nodes[nodes.Count - 1].transform.position, nodes[nodes.Count - 2].transform.position));
         roads.Add(roadTmp);
+        nodesCount++;
+    }
+
+    public void CreateTower(Vector3 pos)
+    {
+        GameObject go = Instantiate(towerPrefab);
+        go.transform.position = pos;
+        towersCount++;
+        /*
+        nodes.Add(go);
+        GameObject roadTmp = Instantiate(roadPrefab);
+        roadTmp.transform.position = nodes[nodes.Count - 1].transform.position;
+        roadTmp.transform.LookAt(nodes[nodes.Count - 2].transform);
+        //Debug.Log("Distance between nodes: " + Vector3.Distance(nodes[nodes.Count - 1].transform.position, nodes[nodes.Count - 2].transform.position));
+        roadTmp.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(1.33f, Vector3.Distance(nodes[nodes.Count - 1].transform.position, nodes[nodes.Count - 2].transform.position));
+        roads.Add(roadTmp);
+        */
     }
 
     IEnumerator SpawningCoroutine()
@@ -62,30 +82,14 @@ public class GameController : MonoBehaviour
         for (int i = 0; i < wave.waves[0].amount; i++)
         {
             GameObject goTmp = Instantiate(wave.waves[0].hi.humanPrefab);
-            StartCoroutine(HumanTravelling(goTmp, wave.waves[0].hi.speed));
-            yield return new WaitForSeconds(0.5f);
+            //goTmp.transform.position = nodes[nodes.Count-1].transform.position;
+            //StartCoroutine(goTmp.GetComponent<Enemy>().HumanTravelling(wave.waves[0].hi.speed, nodes));
+            yield return new WaitForSeconds(1.5f);
         }
 
     }
     
-    IEnumerator HumanTravelling(GameObject human, float speed)
-    {
-        int countdown = nodes.Count-1;
-        Debug.Log("cd: "+ countdown);
-        while (countdown > 0)
-        {
-            human.transform.position = nodes[countdown].transform.position;
-            human.transform.LookAt(nodes[countdown - 1].transform.position);
-            while (Vector3.Distance(human.transform.position, nodes[countdown - 1].transform.position) >0.1f)
-            {
-                human.transform.Translate(Vector3.forward * speed * Time.deltaTime);
-                yield return null;
-            }
-
-            countdown--;
-        }
-        yield return null;
-    }
+    
 
 
 }
