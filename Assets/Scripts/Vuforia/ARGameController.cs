@@ -9,6 +9,8 @@ public class ARGameController : MonoBehaviour {
     [Header("Игровые Префабы")]
     // Ссылки на игровые префабы   
     public GameObject roadPref;
+    public GameObject nodePref;
+    public GameObject towerPref;
 
     [Header("Ссылки на основные игровые объекты")]
     // Ссылки на основные игровые объекты   
@@ -21,7 +23,7 @@ public class ARGameController : MonoBehaviour {
     public Transform mainTargetImage;
 
 
-    private void Start()
+    private void Awake()
     {
         instance = this;
     }
