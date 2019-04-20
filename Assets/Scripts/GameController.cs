@@ -30,7 +30,10 @@ public class GameController : NetworkBehaviour
 
     void Awake()
     {
-        instance = this;
+        if (!isLocalPlayer)
+        {
+            instance = this;
+        }
     }
 
     // Start is called before the first frame update
@@ -55,6 +58,7 @@ public class GameController : NetworkBehaviour
     [Command]
     public void CmdCreateNode(Vector3 pos)
     {
+        Debug.Log("Cmd has executed!");
         GameObject go = Instantiate(nodePrefab);
         go.transform.position = pos;
         nodes.Add(go);
@@ -72,7 +76,8 @@ public class GameController : NetworkBehaviour
         NetworkServer.Spawn(roadTmp);
     }
 
-    public void CreateTower(Vector3 pos)
+    [Command]
+    public void CmdCreateTower(Vector3 pos)
     {
         GameObject go = Instantiate(towerPrefab);
         go.transform.position = pos;
