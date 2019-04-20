@@ -6,8 +6,8 @@ using UnityEngine;
 public class HumanInfo : ScriptableObject
 {
     public string humanName;
-    public int health;
-    public int speed;
+    public float health;
+    public float speed;
 
     public GameObject humanPrefab;
 

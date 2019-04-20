@@ -1,12 +1,17 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
+using UnityEngine.Networking;
 
-public class GameController : MonoBehaviour
+public class GameController : NetworkBehaviour
 {
 
     public WaveInfo wave;
     public static GameController instance;
+
+    public TextMeshProUGUI nodesText;
+    public TextMeshProUGUI towersText;
 
     [SerializeField]
     private GameObject towerPrefab;
@@ -20,8 +25,8 @@ public class GameController : MonoBehaviour
     public List<GameObject> nodes = new List<GameObject>();
     List<GameObject> roads = new List<GameObject>();
 
-    public int towersCount = 0;
-    public int nodesCount = 0;
+    [SyncVar]public int towersCount = 0;
+    [SyncVar] public int nodesCount = 0;
 
     void Awake()
     {
@@ -47,7 +52,8 @@ public class GameController : MonoBehaviour
         StartCoroutine(SpawningCoroutine());
     }
 
-    public void CreateNode(Vector3 pos)
+    [Command]
+    public void CmdCreateNode(Vector3 pos)
     {
         GameObject go = Instantiate(nodePrefab);
         go.transform.position = pos;
@@ -59,6 +65,11 @@ public class GameController : MonoBehaviour
         roadTmp.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(1.33f, Vector3.Distance(nodes[nodes.Count - 1].transform.position, nodes[nodes.Count - 2].transform.position));
         roads.Add(roadTmp);
         nodesCount++;
+        nodesText.text = "Дорог: " + (nodesCount-1).ToString();
+        Debug.Log("Netw serv1");
+        NetworkServer.Spawn(go);
+        Debug.Log("Netw serv2");
+        NetworkServer.Spawn(roadTmp);
     }
 
     public void CreateTower(Vector3 pos)
@@ -66,6 +77,7 @@ public class GameController : MonoBehaviour
         GameObject go = Instantiate(towerPrefab);
         go.transform.position = pos;
         towersCount++;
+        towersText.text = "Башен: "+towersCount.ToString();
         /*
         nodes.Add(go);
         GameObject roadTmp = Instantiate(roadPrefab);
@@ -79,12 +91,17 @@ public class GameController : MonoBehaviour
 
     IEnumerator SpawningCoroutine()
     {
-        for (int i = 0; i < wave.waves[0].amount; i++)
+        for (int j = 0; j < wave.waves.Length; j++)
         {
-            GameObject goTmp = Instantiate(wave.waves[0].hi.humanPrefab);
-            //goTmp.transform.position = nodes[nodes.Count-1].transform.position;
-            //StartCoroutine(goTmp.GetComponent<Enemy>().HumanTravelling(wave.waves[0].hi.speed, nodes));
-            yield return new WaitForSeconds(1.5f);
+            for (int i = 0; i < wave.waves[j].amount; i++)
+            {
+                GameObject goTmp = Instantiate(wave.waves[j].hi.humanPrefab);
+                goTmp.GetComponent<Enemy>().hp = wave.waves[j].hi.health;
+                goTmp.GetComponent<Enemy>().speed = wave.waves[j].hi.speed;
+                //goTmp.transform.position = nodes[nodes.Count-1].transform.position;
+                //StartCoroutine(goTmp.GetComponent<Enemy>().HumanTravelling(wave.waves[0].hi.speed, nodes));
+                yield return new WaitForSeconds(1.5f);
+            }
         }
 
     }

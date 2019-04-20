@@ -1454,10 +1454,10 @@ GameObject:
   m_Component:
   - component: {fileID: 400082}
   - component: {fileID: 9500000}
-  - component: {fileID: 11400002}
-  - component: {fileID: 14300000}
-  - component: {fileID: 11400000}
   - component: {fileID: 11400004}
+  - component: {fileID: 2761600383316361285}
+  - component: {fileID: 7089685747128612458}
+  - component: {fileID: 7861236416660352826}
   m_Layer: 0
   m_Name: MonsterAxeZombie
   m_TagString: enemy
@@ -1501,82 +1501,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &11400002
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: caa9cee7f17050748b415e38c658e69d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_characterName: 
-  m_enableControl: 0
-  m_turnSpeed: 10
-  m_moveSpeed: 0.4
-  m_runSpeedScale: 2
-  m_attackOffset: {x: 0, y: 1, z: 0.5}
-  m_attackRadius: 0.5
-  m_airTime: 0
-  m_hitEffect: {fileID: 100006, guid: 4886dc790c2c22b40baf7102f60b710a, type: 3}
-  m_cameraTarget: {fileID: 100050}
-  m_damageReaction:
-  - Damage1
-  - Damage2
-  - Damage3
-  - Damage1
-  m_actionList:
-  - m_name: AttackL
-    m_keyCode: 122
-  - m_name: AttackR
-    m_keyCode: 120
-  - m_name: Attack1
-    m_keyCode: 99
-  - m_name: Attack2
-    m_keyCode: 118
-  - m_name: Skill
-    m_keyCode: 98
-  - m_name: SkillFast
-    m_keyCode: 110
---- !u!143 &14300000
-CharacterController:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100082}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Height: 2
-  m_Radius: 0.3
-  m_SlopeLimit: 45
-  m_StepOffset: 0.3
-  m_SkinWidth: 0.08
-  m_MinMoveDistance: 0
-  m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &11400000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 100082}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5f73223970d8f354e85ae05f9fafcace, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_axeHead: {fileID: 100022}
-  m_axeHand: {fileID: 100040}
-  m_axeProjectile: {fileID: 100000, guid: c1f1140482cb1c84785341570a3c2594, type: 3}
-  m_exp: 0
-  m_expUp: 3
-  m_level: 0
 --- !u!114 &11400004
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1602,6 +1526,75 @@ MonoBehaviour:
   - Damage3
   - Die
   - Standup
+--- !u!114 &2761600383316361285
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 075f6d145cfbce54ca82a5759562413b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 0
+  speed: 0
+--- !u!114 &7089685747128612458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 372142912, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SceneId:
+    m_Value: 0
+  m_AssetId:
+    i0: 0
+    i1: 0
+    i2: 0
+    i3: 0
+    i4: 0
+    i5: 0
+    i6: 0
+    i7: 0
+    i8: 0
+    i9: 0
+    i10: 0
+    i11: 0
+    i12: 0
+    i13: 0
+    i14: 0
+    i15: 0
+  m_ServerOnly: 0
+  m_LocalPlayerAuthority: 0
+--- !u!114 &7861236416660352826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 100082}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -1768714887, guid: dc443db3e92b4983b9738c1131f555cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_TransformSyncMode: 1
+  m_SendInterval: 0.1
+  m_SyncRotationAxis: 7
+  m_RotationSyncCompression: 0
+  m_SyncSpin: 0
+  m_MovementTheshold: 0.001
+  m_VelocityThreshold: 0.0001
+  m_SnapThreshold: 5
+  m_InterpolateRotation: 1
+  m_InterpolateMovement: 1
 --- !u!1 &100084
 GameObject:
   m_ObjectHideFlags: 0

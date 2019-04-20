@@ -4,13 +4,14 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    public int hp=5;
+    public float hp;
+    public float speed;
 
     private Coroutine movingCor;
     // Start is called before the first frame update
     void Start()
     {
-        movingCor = StartCoroutine(HumanTravelling(5f, GameController.instance.nodes));
+        movingCor = StartCoroutine(HumanTravelling(GameController.instance.nodes));
     }
 
     // Update is called once per frame
@@ -40,22 +41,22 @@ public class Enemy : MonoBehaviour
         Destroy(gameObject);
     }
 
-    public IEnumerator HumanTravelling(float speed, List<GameObject> nodes)
+    public IEnumerator HumanTravelling( List<GameObject> nodes)
     {
         GetComponent<Animator>().Play("Walk");
         int countdown = nodes.Count - 1;
         Debug.Log("cd: " + countdown);
         while (countdown > 0)
         {
-            Debug.Log("prev: " + transform.position);
+           // Debug.Log("prev: " + transform.position);
             transform.position = nodes[countdown].transform.position;
             transform.LookAt(nodes[countdown - 1].transform.position);
-            Debug.Log("prev2: " + transform.position);
+            //Debug.Log("prev2: " + transform.position);
             while (Vector3.Distance(transform.position, nodes[countdown - 1].transform.position) > 0.1f)
             {
                 transform.LookAt(nodes[countdown - 1].transform.position);
                 //Debug.Log("thru: " + human.transform.position);
-                transform.Translate(Vector3.forward * 3f * Time.deltaTime);
+                transform.Translate(Vector3.forward * speed * Time.deltaTime);
                 yield return null;
             }
             Debug.Log("after: " + transform.position);

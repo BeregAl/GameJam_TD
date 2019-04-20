@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a460a77095791e64888986a19cc29da4, type: 3}
   m_Name: "\u0417\u043E\u043C\u0431\u044F\u043A"
   m_EditorClassIdentifier: 
-  humanName: "\u0414\u0435\u0434\u0443\u043B\u044F"
-  health: 10
-  speed: 3
+  humanName: "\u0437\u043E\u043C\u0431\u044F\u043A"
+  health: 2
+  speed: 2
   humanPrefab: {fileID: 100082, guid: 819531b6a47a99947b9e84df2d0181a9, type: 3}

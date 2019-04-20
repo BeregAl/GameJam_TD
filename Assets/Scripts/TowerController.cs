@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -77,13 +78,22 @@ public class TowerController : MonoBehaviour
             {
                 projectileInstance.SetActive(true);
                 GameObject projectileTarget = currentTarget;
-                while (Vector3.Distance(projectileInstance.transform.position, projectileTarget.transform.position) > 1f)
+                
+
+                while (currentTarget!=null )
                 {
-                    projectileInstance.transform.LookAt(projectileTarget.transform.position);
-                    projectileInstance.transform.Translate(Vector3.forward * 15f * Time.deltaTime);
-                    yield return null;
+                    if (Vector3.Distance(projectileInstance.transform.position, projectileTarget.transform.position) > 1f)
+                    {
+                        projectileInstance.transform.LookAt(projectileTarget.transform.position);
+                        projectileInstance.transform.Translate(Vector3.forward * 15f * Time.deltaTime);
+                        yield return null;
+                    }
+                    else
+                    {
+                        currentTarget.GetComponent<Enemy>().TakeDamage(1);
+                        break;
+                    }
                 }
-                currentTarget.GetComponent<Enemy>().TakeDamage(3);
                 projectileInstance.SetActive(false);
                 projectileInstance.transform.position = projectileOrigin.position;
 
