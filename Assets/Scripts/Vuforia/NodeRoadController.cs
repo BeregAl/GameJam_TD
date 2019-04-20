@@ -14,7 +14,7 @@ public class NodeRoadController : MonoBehaviour {
     private float ghostRoadWitdth;
 
     GameObject ghostRoad=null;
-    GameObject ghostNode=null;
+    Transform ghostNode=null;
     List<GameObject> nodes = new List<GameObject>();
     List<GameObject> roads = new List<GameObject>();
 
@@ -56,15 +56,19 @@ public class NodeRoadController : MonoBehaviour {
 
         if (Input.GetMouseButtonDown(0))
         {
-            Touch touch = Input.GetTouch(0);
             //сюда запишется инфо о пересечении луча, если оно будет
-            RaycastHit hit;
+            //RaycastHit hit;
             //сам луч, начинается от позиции этого объекта и направлен в сторону цели
-            Ray ray = Camera.main.ScreenPointToRay(touch.position);
+            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             //Ray ray = new Ray(Camera.main.ScreenToWorldPoint(Input.mousePosition), target.transform.position - transform.position);
             //пускаем луч
-            Physics.Raycast(ray, out hit);
-            FinalizeNode();
+            //Physics.Raycast(ray, out hit);
+            Debug.Log("MouseButton");
+            if (ghostNode != null)
+            {                
+                Debug.Log("FinalizingNode");
+                FinalizeNode();
+            }
         }
 
     }   
@@ -73,27 +77,30 @@ public class NodeRoadController : MonoBehaviour {
     {
         //Destroy(ghostRoad);
         GameObject finalizedNode = Instantiate(ARGameController.instance.nodePref, ARGameController.instance.mainTargetImage);
-        finalizedNode.transform.position = ghostNode.transform.position;        
+        finalizedNode.transform.position = ghostNode.position;        
         //ghostNode.transform.SetParent(ARGameController.instance.mainTargetImage);       
-        nodes.Add(finalizedNode);        
+        nodes.Add(finalizedNode);
         //Debug.Log("Distance between nodes: " + Vector3.Distance(nodes[nodes.Count - 1].transform.position, nodes[nodes.Count - 2].transform.position));
+        ghostRoad.transform.SetParent(finalizedNode.transform);
         roads.Add(ghostRoad);
         ghostNode = null;
         ghostRoad = null;
         StopAllCoroutines();
     }
 
-    public void DisplayGhostNodeRoad(Transform ghostNode)
+    public void DisplayGhostNodeRoad(Transform m_ghostNode)
     {
         if (ghostRoad == null || !ARGameController.instance.mainRoadNode.activeInHierarchy)
         {
+            ghostNode = m_ghostNode;
             // Начать показ дороги к не добавленный на основной таргет ноде
-            ghostRoad = Instantiate(roadPrefab);
-            ghostRoad.transform.position = ghostNode.position;
+            ghostNode = m_ghostNode;
+            ghostRoad = Instantiate(roadPrefab,m_ghostNode);
+            ghostRoad.transform.position = m_ghostNode.position;
             ghostRoad.transform.LookAt(nodes[nodes.Count - 1].transform.position);
-            ghostRoad.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(ghostRoadWitdth, Vector3.Distance(ghostNode.position, nodes[nodes.Count - 1].transform.position));
+            ghostRoad.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(ghostRoadWitdth, Vector3.Distance(m_ghostNode.position, nodes[nodes.Count - 1].transform.position));
             // Как только инициализировали ноду запускаем коротину с обновлением позиции дороги  
-            IEnumerator cor = GhostRoadCoroutine(ghostNode);
+            IEnumerator cor = GhostRoadCoroutine(m_ghostNode);
             StartCoroutine(cor);
         }
     }

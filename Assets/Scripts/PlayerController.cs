@@ -47,7 +47,7 @@ public class PlayerController : NetworkBehaviour
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            if (GameController.instance.towersCount<3)
+            if (GameController.instance.towersCount<10)
             {
                 //сюда запишется инфо о пересечении луча, если оно будет
                 RaycastHit hit;

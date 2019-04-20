@@ -82,7 +82,7 @@ public class TowerController : MonoBehaviour
 
                 while (currentTarget!=null )
                 {
-                    if (Vector3.Distance(projectileInstance.transform.position, projectileTarget.transform.position) > 1f)
+                    if (projectileTarget!=null && Vector3.Distance(projectileInstance.transform.position, projectileTarget.transform.position) > 1f)
                     {
                         projectileInstance.transform.LookAt(projectileTarget.transform.position);
                         projectileInstance.transform.Translate(Vector3.forward * 15f * Time.deltaTime);

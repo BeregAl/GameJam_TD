@@ -34,8 +34,7 @@ public class RoadNodeTrackableBehaviour : MonoBehaviour, ITrackableEventHandler
     #region PUBLIC_METHODS
 
     /// <summary>
-    ///     Implementation of the ITrackableEventHandler function called when the
-    ///     tracking state changes.
+    ///     ITrackableEventHandler вызывается когда изменяется стейт трэкинга
     /// </summary>
     public void OnTrackableStateChanged(
         TrackableBehaviour.Status previousStatus,
@@ -58,10 +57,8 @@ public class RoadNodeTrackableBehaviour : MonoBehaviour, ITrackableEventHandler
             OnTrackingLost();
         }
         else
-        {
-            // For combo of previousStatus=UNKNOWN + newStatus=UNKNOWN|NOT_FOUND
-            // Vuforia is starting, but tracking has not been lost or found yet
-            // Call OnTrackingLost() to hide the augmentations
+        {          
+           
             OnTrackingLost();
         }
     }
@@ -79,15 +76,15 @@ public class RoadNodeTrackableBehaviour : MonoBehaviour, ITrackableEventHandler
         var colliderComponents = GetComponentsInChildren<Collider>(true);
         var canvasComponents = GetComponentsInChildren<Canvas>(true);
 
-        // Enable rendering:
+        // Включаем рендер
         foreach (var component in rendererComponents)
             component.enabled = true;
 
-        // Enable colliders:
+        // Включаем коллайдеры
         foreach (var component in colliderComponents)
             component.enabled = true;
 
-        // Enable canvas':
+        // Включаем канвасы
         foreach (var component in canvasComponents)
             component.enabled = true;
     }
@@ -96,20 +93,21 @@ public class RoadNodeTrackableBehaviour : MonoBehaviour, ITrackableEventHandler
     protected virtual void OnTrackingLost()
     {
         // Прибераем за собой дорогу в случае постройки
+        NodeRoadController.instance.ClearGhostRoad();
         
         var rendererComponents = GetComponentsInChildren<Renderer>(true);
         var colliderComponents = GetComponentsInChildren<Collider>(true);
         var canvasComponents = GetComponentsInChildren<Canvas>(true);
 
-        // Disable rendering:
+        // Отключаем рендер
         foreach (var component in rendererComponents)
             component.enabled = false;
 
-        // Disable colliders:
+        // Отключаем коллайдеры
         foreach (var component in colliderComponents)
             component.enabled = false;
 
-        // Disable canvas':
+        // Отключаем канвасы
         foreach (var component in canvasComponents)
             component.enabled = false;
     }
