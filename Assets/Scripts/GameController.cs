@@ -36,6 +36,9 @@ public class GameController : MonoBehaviour
     public int towersCount = 0;
     public int nodesCount = 0;
 
+    public TextMeshProUGUI AbilityTimer;
+    public int abilityCountdown = 3;
+    public Coroutine abilityCoroutine;
 
     // Переменные для логики игры
     public Transform ghostTower;
@@ -129,7 +132,24 @@ public class GameController : MonoBehaviour
         }
 
     }
-    
+
+    public void AbilityRun()
+    {
+        abilityCountdown = 3;
+        abilityCoroutine = StartCoroutine(AbilityCoroutine());
+    }
+
+    IEnumerator AbilityCoroutine()
+    {
+        for (int i = abilityCountdown; i > 0; i--)
+        {
+            AbilityTimer.text = i.ToString();
+            yield return new WaitForSeconds(1f);
+        }
+
+        yield return null;
+
+    }
     
 
 

@@ -88,6 +88,8 @@ public class AbilityTargetBehaviour : MonoBehaviour, ITrackableEventHandler
         // Включаем канвасы
         foreach (var component in canvasComponents)
             component.enabled = true;
+
+        GameController.instance.AbilityRun();
     }
 
 
