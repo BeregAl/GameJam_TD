@@ -37,36 +37,43 @@ public class PlayerController : NetworkBehaviour
     // Update is called once per frame
     void Update()
     {
-
-        if (Input.GetMouseButtonDown(0) && Application.isFocused)
+        if (!isLocalPlayer)
         {
-            if (isLocalPlayer)
-            {
-                SpawnNode();
-            }
+            return;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Debug.Log("Spawn has executed!");
+            SpawnNode();
         }
         else if (Input.GetMouseButtonDown(1))
         {
-            if (GameController.instance.towersCount<10)
-            {
-                //сюда запишется инфо о пересечении луча, если оно будет
-                RaycastHit hit;
-                //сам луч, начинается от позиции этого объекта и направлен в сторону цели
-                Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                //Ray ray = new Ray(Camera.main.ScreenToWorldPoint(Input.mousePosition), target.transform.position - transform.position);
-                //пускаем луч
-                Physics.Raycast(ray, out hit);
-                if (hit.collider != null)
-                {
-                    if (hit.collider.name == "Cube")
-                    {
-                        GameController.instance.CreateTower(hit.point);
+            SpawnTower();
+        }
 
-                    }
+    }
+
+    public void SpawnTower()
+    {
+        if (GameController.instance.towersCount < 3)
+        {
+            //сюда запишется инфо о пересечении луча, если оно будет
+            RaycastHit hit;
+            //сам луч, начинается от позиции этого объекта и направлен в сторону цели
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            //Ray ray = new Ray(Camera.main.ScreenToWorldPoint(Input.mousePosition), target.transform.position - transform.position);
+            //пускаем луч
+            Physics.Raycast(ray, out hit);
+            if (hit.collider != null)
+            {
+                if (hit.collider.name == "Cube")
+                {
+                    GameController.instance.CmdCreateTower(hit.point);
+
                 }
             }
         }
-
     }
 
     public override void OnStartLocalPlayer()
