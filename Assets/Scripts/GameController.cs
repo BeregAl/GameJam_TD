@@ -2,9 +2,8 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Networking;
 
-public class GameController : NetworkBehaviour
+public class GameController : MonoBehaviour
 {
 
     public WaveInfo wave;
@@ -25,15 +24,12 @@ public class GameController : NetworkBehaviour
     public List<GameObject> nodes = new List<GameObject>();
     List<GameObject> roads = new List<GameObject>();
 
-    [SyncVar]public int towersCount = 0;
-    [SyncVar] public int nodesCount = 0;
+    public int towersCount = 0;
+    public int nodesCount = 0;
 
     void Awake()
     {
-        if (!isLocalPlayer)
-        {
-            instance = this;
-        }
+        instance = this;
     }
 
     // Start is called before the first frame update
@@ -54,8 +50,7 @@ public class GameController : NetworkBehaviour
     {
         StartCoroutine(SpawningCoroutine());
     }
-
-    [Command]
+    
     public void CmdCreateNode(Vector3 pos)
     {
         Debug.Log("Cmd has executed!");
@@ -70,13 +65,8 @@ public class GameController : NetworkBehaviour
         roads.Add(roadTmp);
         nodesCount++;
         nodesText.text = "Дорог: " + (nodesCount-1).ToString();
-        Debug.Log("Netw serv1");
-        NetworkServer.Spawn(go);
-        Debug.Log("Netw serv2");
-        NetworkServer.Spawn(roadTmp);
     }
-
-    [Command]
+    
     public void CmdCreateTower(Vector3 pos)
     {
         GameObject go = Instantiate(towerPrefab);
