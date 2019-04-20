@@ -15,8 +15,8 @@ public class NodeRoadController : MonoBehaviour {
 
     GameObject ghostRoad=null;
     Transform ghostNode=null;
-    List<GameObject> nodes = new List<GameObject>();
-    List<GameObject> roads = new List<GameObject>();
+    //List<GameObject> GameController.instance.nodes = new List<GameObject>();
+    //List<GameObject> GameController.instance.roads = new List<GameObject>();
 
 
     private void Awake()
@@ -28,10 +28,10 @@ public class NodeRoadController : MonoBehaviour {
     void Start()
     {
         // Добавляем первую ноду дороги- спавн поинт в список нод
-        roadPrefab = ARGameController.instance.roadPref;
-        nodes.Add(ARGameController.instance.mainRoadNode);       
-        //nodes.Add(Instantiate(nodePrefab));
-        // nodes[0].transform.position = new Vector3(0, 0.5f, 0);
+        roadPrefab = GameController.instance.roadPrefab;
+        GameController.instance.nodes.Add(GameController.instance.mainRoadNode);       
+        //GameController.instance.nodes.Add(Instantiate(nodePrefab));
+        // GameController.instance.nodes[0].transform.position = new Vector3(0, 0.5f, 0);
     }
 
     // Update is called once per frame
@@ -42,28 +42,13 @@ public class NodeRoadController : MonoBehaviour {
         {
             if (ghostNode != null)
             {
-                Touch touch = Input.GetTouch(0);
-                //сюда запишется инфо о пересечении луча, если оно будет
-                RaycastHit hit;
-                //сам луч, начинается от позиции этого объекта и направлен в сторону цели
-                Ray ray = Camera.main.ScreenPointToRay(touch.position);
-                //Ray ray = new Ray(Camera.main.ScreenToWorldPoint(Input.mousePosition), target.transform.position - transform.position);
-                //пускаем луч
-                Physics.Raycast(ray, out hit);
+                Touch touch = Input.GetTouch(0);               
                 FinalizeNode();
             }
         }
 
         if (Input.GetMouseButtonDown(0))
-        {
-            //сюда запишется инфо о пересечении луча, если оно будет
-            //RaycastHit hit;
-            //сам луч, начинается от позиции этого объекта и направлен в сторону цели
-            //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            //Ray ray = new Ray(Camera.main.ScreenToWorldPoint(Input.mousePosition), target.transform.position - transform.position);
-            //пускаем луч
-            //Physics.Raycast(ray, out hit);
-            Debug.Log("MouseButton");
+        {                        
             if (ghostNode != null)
             {                
                 Debug.Log("FinalizingNode");
@@ -75,14 +60,15 @@ public class NodeRoadController : MonoBehaviour {
 
     public void FinalizeNode()
     {
+        GameController.instance.nodesCount++;
         //Destroy(ghostRoad);
-        GameObject finalizedNode = Instantiate(ARGameController.instance.nodePref, ARGameController.instance.mainTargetImage);
+        GameObject finalizedNode = Instantiate(GameController.instance.nodePrefab, GameController.instance.mainTargetContainer);
         finalizedNode.transform.position = ghostNode.position;        
-        //ghostNode.transform.SetParent(ARGameController.instance.mainTargetImage);       
-        nodes.Add(finalizedNode);
-        //Debug.Log("Distance between nodes: " + Vector3.Distance(nodes[nodes.Count - 1].transform.position, nodes[nodes.Count - 2].transform.position));
+        //ghostNode.transform.SetParent(GameController.instance.mainTargetImage);       
+        GameController.instance.nodes.Add(finalizedNode);
+        //Debug.Log("Distance between GameController.instance.nodes: " + Vector3.Distance(GameController.instance.nodes[GameController.instance.nodes.Count - 1].transform.position, GameController.instance.nodes[GameController.instance.nodes.Count - 2].transform.position));
         ghostRoad.transform.SetParent(finalizedNode.transform);
-        roads.Add(ghostRoad);
+        GameController.instance.roads.Add(ghostRoad);
         ghostNode = null;
         ghostRoad = null;
         StopAllCoroutines();
@@ -90,15 +76,15 @@ public class NodeRoadController : MonoBehaviour {
 
     public void DisplayGhostNodeRoad(Transform m_ghostNode)
     {
-        if (ghostRoad == null || !ARGameController.instance.mainRoadNode.activeInHierarchy)
+        if (ghostRoad == null || !GameController.instance.mainRoadNode.activeInHierarchy)
         {
             ghostNode = m_ghostNode;
             // Начать показ дороги к не добавленный на основной таргет ноде
             ghostNode = m_ghostNode;
             ghostRoad = Instantiate(roadPrefab,m_ghostNode);
             ghostRoad.transform.position = m_ghostNode.position;
-            ghostRoad.transform.LookAt(nodes[nodes.Count - 1].transform.position);
-            ghostRoad.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(ghostRoadWitdth, Vector3.Distance(m_ghostNode.position, nodes[nodes.Count - 1].transform.position));
+            ghostRoad.transform.LookAt(GameController.instance.nodes[GameController.instance.nodes.Count - 1].transform.position);
+            ghostRoad.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(ghostRoadWitdth, Vector3.Distance(m_ghostNode.position, GameController.instance.nodes[GameController.instance.nodes.Count - 1].transform.position));
             // Как только инициализировали ноду запускаем коротину с обновлением позиции дороги  
             IEnumerator cor = GhostRoadCoroutine(m_ghostNode);
             StartCoroutine(cor);
@@ -108,11 +94,11 @@ public class NodeRoadController : MonoBehaviour {
     IEnumerator GhostRoadCoroutine(Transform ghostNode)
     {
         yield return new WaitForEndOfFrame();
-        Debug.Log("BuildingSHIT");
+        
         // Дорогу показываем корутиной чтобы не гонять условия в апдейте
         ghostRoad.transform.position = ghostNode.position;
-        ghostRoad.transform.LookAt(nodes[nodes.Count - 1].transform.position);
-        ghostRoad.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(ghostRoadWitdth, Vector3.Distance(ghostNode.position, nodes[nodes.Count - 1].transform.position));
+        ghostRoad.transform.LookAt(GameController.instance.nodes[GameController.instance.nodes.Count - 1].transform.position);
+        ghostRoad.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(ghostRoadWitdth, Vector3.Distance(ghostNode.position, GameController.instance.nodes[GameController.instance.nodes.Count - 1].transform.position));
         StartCoroutine(GhostRoadCoroutine(ghostNode));
     }
 

@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <QCARConfig xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="qcar_config.xsd">
   <Tracking>
-    <ImageTarget name="Ability2" size="1.000000 1.000000" />
-    <ImageTarget name="Turret" size="1.000000 1.000000" />
-    <ImageTarget name="RoadNode" size="1.000000 1.000000" />
     <ImageTarget name="Ability1" size="1.000000 1.000000" />
+    <ImageTarget name="Turret" size="1.000000 1.000000" />
+    <ImageTarget name="Main" size="1.000000 1.000000" />
+    <ImageTarget name="Ability2" size="1.000000 1.000000" />
+    <ImageTarget name="RoadNode" size="1.000000 1.000000" />
   </Tracking>
 </QCARConfig>

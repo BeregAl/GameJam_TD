@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   humanName: "\u0437\u043E\u043C\u0431\u044F\u043A"
   health: 2
-  speed: 2
+  speed: 0.2
   humanPrefab: {fileID: 100082, guid: 819531b6a47a99947b9e84df2d0181a9, type: 3}

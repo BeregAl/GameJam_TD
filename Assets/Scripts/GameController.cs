@@ -9,23 +9,36 @@ public class GameController : MonoBehaviour
     public WaveInfo wave;
     public static GameController instance;
 
+    [Header("Ссылки на основные игровые объекты")]
+    // Ссылки на основные игровые объекты   
+    public GameObject mainBase;   
+    public GameObject mainRoadNode;
+
+    [Header("Ссылки на основные AR объекты")]
+    // Ссылки на основные AR объекты
+    public Transform mainTargetContainer;
+
+    [Header("Все остальное")]
+
     public TextMeshProUGUI nodesText;
     public TextMeshProUGUI towersText;
-
+    
     [SerializeField]
-    private GameObject towerPrefab;
+    public GameObject towerPrefab;  
     [SerializeField]
-    private GameObject target;
+    public GameObject nodePrefab;
     [SerializeField]
-    private GameObject nodePrefab;
-    [SerializeField]
-    private GameObject roadPrefab;
+    public GameObject roadPrefab;
 
     public List<GameObject> nodes = new List<GameObject>();
-    List<GameObject> roads = new List<GameObject>();
+    public List<GameObject> roads = new List<GameObject>();
 
     public int towersCount = 0;
     public int nodesCount = 0;
+
+
+    // Переменные для логики игры
+    public Transform ghostTower;
 
     void Awake()
     {
@@ -35,19 +48,35 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        nodes.Add(Instantiate(nodePrefab));
-        nodes[0].transform.position = new Vector3(0, 0.5f, 0);
-        nodesCount++;
+        //nodes.Add(Instantiate(nodePrefab));
+        //nodes[0].transform.position = new Vector3(0, 0.5f, 0);
+        //nodesCount++;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if (ghostTower != null)
+        {
+            if (Input.touchCount > 0)
+            {
+                    Touch touch = Input.GetTouch(0);
+                    CmdCreateTower(ghostTower);
+                
+            }
+
+            if (Input.GetMouseButtonDown(0))
+            {   
+                
+                    Debug.Log("PlacingTower");
+                    CmdCreateTower(ghostTower);
+            }
+        }
     }
 
     public void StartWave(WaveInfo _wave)
     {
+        Debug.Log("Понеслась");
         StartCoroutine(SpawningCoroutine());
     }
     
@@ -67,10 +96,10 @@ public class GameController : MonoBehaviour
         nodesText.text = "Дорог: " + (nodesCount-1).ToString();
     }
     
-    public void CmdCreateTower(Vector3 pos)
+    public void CmdCreateTower(Transform towerTransform)
     {
-        GameObject go = Instantiate(towerPrefab);
-        go.transform.position = pos;
+        GameObject tower = Instantiate(towerPrefab, mainTargetContainer) as GameObject;
+        tower.transform.position = towerTransform.position;        
         towersCount++;
         towersText.text = "Башен: "+towersCount.ToString();
         /*
@@ -90,7 +119,7 @@ public class GameController : MonoBehaviour
         {
             for (int i = 0; i < wave.waves[j].amount; i++)
             {
-                GameObject goTmp = Instantiate(wave.waves[j].hi.humanPrefab);
+                GameObject goTmp = Instantiate(wave.waves[j].hi.humanPrefab,mainTargetContainer);
                 goTmp.GetComponent<Enemy>().hp = wave.waves[j].hi.health;
                 goTmp.GetComponent<Enemy>().speed = wave.waves[j].hi.speed;
                 //goTmp.transform.position = nodes[nodes.Count-1].transform.position;

@@ -63,8 +63,7 @@ public class PlayerController : MonoBehaviour
             {
                 if (hit.collider.name == "Cube")
                 {
-                    GameController.instance.CmdCreateTower(hit.point);
-
+                  //  GameController.instance.CmdCreateTower(hit.point);
                 }
             }
         }
