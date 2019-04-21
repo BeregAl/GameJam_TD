@@ -10,7 +10,8 @@ public class Enemy : MonoBehaviour
     public bool invulnerable;
 
     public GameObject speedBoostParticles;
-    public float invulScaleBoost;
+    public Vector3 invulScaleBoost= new Vector3(3f,3f,3f);
+    public Vector3 invulScaleDecrease = new Vector3(0.33f, 0.33f, 0.33f);
 
 
     private Coroutine movingCor;
@@ -102,9 +103,9 @@ public class Enemy : MonoBehaviour
         float tmp = hp;
         hp = 99999;
         invulnerable = true;
-        transform.localScale = transform.localScale * invulScaleBoost;
+        Vector3.Scale(transform.localScale, invulScaleBoost);
         yield return new WaitForSeconds(2f);
-        transform.localScale = transform.localScale/invulScaleBoost;
+        Vector3.Scale(transform.localScale, invulScaleDecrease);
         invulnerable = false;
         hp = tmp;
     }
