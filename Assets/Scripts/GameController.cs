@@ -10,6 +10,7 @@ public class GameController : MonoBehaviour
     public WaveInfo wave;
     public static GameController instance;
     private int _points=0;
+    public bool isGameStarted = false;
 
     [Header("Ссылки на основные игровые объекты")]
     // Ссылки на основные игровые объекты   
@@ -28,6 +29,7 @@ public class GameController : MonoBehaviour
     [Header("UI элементы")]
     public GameObject startGameButton;
     public GameObject startWaveButton;
+    public List<GameObject> tutorialWindows;
     public GameObject roadNodeHint;
     public GameObject abilityHint;
     public GameObject mainTargetHint;
@@ -66,11 +68,41 @@ public class GameController : MonoBehaviour
         instance = this;
     }
 
+    public void ShowTutorialStep(int m_step)
+    {
+        switch (m_step)
+        {
+            case 0:
+                if (!isGameStarted)
+                {
+                    tutorialWindows[0].SetActive(true);
+                    tutorialWindows[1].SetActive(false);
+                }
+                break;
+            case 1:
+                tutorialWindows[0].SetActive(false);
+                tutorialWindows[1].SetActive(true);
+                tutorialWindows[2].SetActive(false);
+                break;
+            case 2:
+                tutorialWindows[1].SetActive(false);
+                tutorialWindows[2].SetActive(true);
+                tutorialWindows[3].SetActive(false);
+                break;
+            case 3:
+                tutorialWindows[2].SetActive(false);
+                tutorialWindows[3].SetActive(true);
+                break;
+
+        }
+    }
+
     // Start is called before the first frame update
     void Start()
     {
         startWaveButton.SetActive(false);
         startGameButton.SetActive(true);
+        ShowTutorialStep(0);
         //nodes.Add(Instantiate(nodePrefab));
         //nodes[0].transform.position = new Vector3(0, 0.5f, 0);
         //nodesCount++;
@@ -110,14 +142,9 @@ public class GameController : MonoBehaviour
     
 
     public void StartGame()
-    {/*
-        for (int i = 0; i < 15; i++)
-        {
-            float Magnit = Random.Range(0, 5) / 5f;
-            float rndAngle = Random.Range(0, 6)*60f;
-            Vector3 rndPosition = mainBase.transform.position + new Vector3(Mathf.Sin(rndAngle)* Magnit, -0.3f, Mathf.Cos(rndAngle) * Magnit);
-            CmdCreateTower(rndPosition);
-        }*/
+    {
+        isGameStarted = true;
+        ShowTutorialStep(2);
         for (int i = 0; i < 12; i++)
         {
             //float Magnit = Random.Range(0, 5) / 5f;
