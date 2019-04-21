@@ -69,9 +69,10 @@ public class NodeRoadController : MonoBehaviour {
         //Debug.Log("Distance between GameController.instance.nodes: " + Vector3.Distance(GameController.instance.nodes[GameController.instance.nodes.Count - 1].transform.position, GameController.instance.nodes[GameController.instance.nodes.Count - 2].transform.position));
         ghostRoad.transform.SetParent(finalizedNode.transform);
         GameController.instance.roads.Add(ghostRoad);
-        ghostNode = null;
+        //ghostNode = null;
         ghostRoad = null;
         StopAllCoroutines();
+        DisplayGhostNodeRoad(ghostNode);
     }
 
     public void DisplayGhostNodeRoad(Transform m_ghostNode)

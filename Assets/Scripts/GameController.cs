@@ -27,6 +27,9 @@ public class GameController : MonoBehaviour
     [Header("UI элементы")]
     public GameObject startGameButton;
     public GameObject startWaveButton;
+    public GameObject roadNodeHint;
+    public GameObject abilityHint;
+    public GameObject mainTargetHint;
 
     [Header("Все остальное")]
 
@@ -199,6 +202,17 @@ public class GameController : MonoBehaviour
         }
     }
 
+    public void ShowMainTargetHint()
+    {
+        mainTargetHint.SetActive(true);
+    }
+
+    public void HideMainTargetHint()
+    {
+        mainTargetHint.SetActive(false);
+    }
+
+    
 
     public int Points
     {
