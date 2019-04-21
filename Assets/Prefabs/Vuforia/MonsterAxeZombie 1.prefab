@@ -1459,7 +1459,7 @@ GameObject:
   - component: {fileID: 7089685747128612458}
   - component: {fileID: 7861236416660352826}
   m_Layer: 0
-  m_Name: MonsterAxeZombie
+  m_Name: MonsterAxeZombie 1
   m_TagString: enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1540,6 +1540,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 0
   speed: 0
+  speedBoosted: 0
+  invulnerable: 0
+  speedBoostParticles: {fileID: 100084}
+  invulScaleBoost: {x: 3, y: 3, z: 3}
+  invulScaleDecrease: {x: 0.33, y: 0.33, z: 0.33}
 --- !u!114 &7089685747128612458
 MonoBehaviour:
   m_ObjectHideFlags: 0

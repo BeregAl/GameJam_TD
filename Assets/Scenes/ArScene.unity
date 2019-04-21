@@ -2177,7 +2177,7 @@ MonoBehaviour:
   pointsCanvas: {fileID: 1086734513}
   pointsText: {fileID: 1815691925}
   AbilityPoint: {fileID: 1403610078}
-  Ability2Point: {fileID: 0}
+  Ability2Point: {fileID: 956960541}
   mainTargetContainer: {fileID: 236676750}
   startGameButton: {fileID: 644675984}
   startWaveButton: {fileID: 43301455}
@@ -2204,7 +2204,7 @@ MonoBehaviour:
   nodesCount: 0
   AbilityTimer: {fileID: 602114856}
   abilityCountdown: 3
-  Ability2Timer: {fileID: 0}
+  Ability2Timer: {fileID: 989243029}
   ability2Countdown: 3
   ghostTower: {fileID: 0}
 --- !u!1001 &885310694

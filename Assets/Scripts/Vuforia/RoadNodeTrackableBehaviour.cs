@@ -70,7 +70,7 @@ public class RoadNodeTrackableBehaviour : MonoBehaviour, ITrackableEventHandler
     protected virtual void OnTrackingFound()
     {
         // Инициализиурем дорожку епт
-        if (GameController.instance.nodesCount < 2)
+        if (GameController.instance.nodesCount < 4)
         {
             NodeRoadController.instance.DisplayGhostNodeRoad(roadNode);
         }
