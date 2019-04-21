@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.Experimental.UIElements;
 
 public class GameController : MonoBehaviour
 {
@@ -22,6 +23,10 @@ public class GameController : MonoBehaviour
     [Header("Ссылки на основные AR объекты")]
     // Ссылки на основные AR объекты
     public Transform mainTargetContainer;
+
+    [Header("UI элементы")]
+    public Button startGameButton;
+    public Button startWaveButton;
 
     [Header("Все остальное")]
 
@@ -56,6 +61,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        startWaveButton.SetEnabled(false);
+        startGameButton.SetEnabled(true);
         //nodes.Add(Instantiate(nodePrefab));
         //nodes[0].transform.position = new Vector3(0, 0.5f, 0);
         //nodesCount++;
@@ -69,7 +76,7 @@ public class GameController : MonoBehaviour
             if (Input.touchCount > 0)
             {
                     Touch touch = Input.GetTouch(0);
-                    CmdCreateTower(ghostTower);
+                    CmdCreateTower(ghostTower.position);
                 
             }
 
@@ -77,7 +84,7 @@ public class GameController : MonoBehaviour
             {   
                 
                     Debug.Log("PlacingTower");
-                    CmdCreateTower(ghostTower);
+                    CmdCreateTower(ghostTower.position);
             }
         }
     }
@@ -87,7 +94,18 @@ public class GameController : MonoBehaviour
         Debug.Log("Понеслась");
         StartCoroutine(SpawningCoroutine());
     }
-    
+
+    public void StartGame()
+    {
+        for (int i = 0; i < 8; i++)
+        {
+            Vector3 rndPosition = mainBase.transform.position + new Vector3(Random.Range(-1.5f, 1.5f), -0.5f, Random.Range(-1.5f, 1.5f));
+            CmdCreateTower(rndPosition);
+        }
+        startGameButton.SetEnabled(false);
+        startWaveButton.SetEnabled(true);
+    }
+
     public void CmdCreateNode(Vector3 pos)
     {
         Debug.Log("Cmd has executed!");
@@ -104,10 +122,10 @@ public class GameController : MonoBehaviour
         nodesText.text = "Дорог: " + (nodesCount-1).ToString();
     }
     
-    public void CmdCreateTower(Transform towerTransform)
+    public void CmdCreateTower(Vector3 towerTransformPosition)
     {
         GameObject tower = Instantiate(towerPrefab, mainTargetContainer) as GameObject;
-        tower.transform.position = towerTransform.position;        
+        tower.transform.position = towerTransformPosition;        
         towersCount++;
         towersText.text = "Башен: "+towersCount.ToString();
         /*
@@ -156,9 +174,9 @@ public class GameController : MonoBehaviour
         GameObject[] enemiesObjects = GameObject.FindGameObjectsWithTag("enemy");
         foreach (var en in enemiesObjects)
         {
-            Debug.Log("Dist: "+ Vector3.Distance(AbilityPoint.transform.position, en.transform.position));
-            if (Vector3.Distance(AbilityPoint.transform.position, en.transform.position) < 1.5f)
+            if (Vector3.Distance(AbilityPoint.transform.position, en.transform.position) < 0.8f)
             {
+                Debug.Log("Dist: " + Vector3.Distance(AbilityPoint.transform.position, en.transform.position));
                 en.GetComponent<Enemy>().BoostSpeed();
             }
         }

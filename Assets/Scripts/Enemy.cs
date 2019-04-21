@@ -76,8 +76,8 @@ public class Enemy : MonoBehaviour
 
     IEnumerator BoostSpeedCoroutine()
     {
-        speed += 2;
+        speed *= 1.5f;
         yield return new WaitForSeconds(2f);
-        speed -= 2;
+        speed /= 1.5f;
     }
 }
