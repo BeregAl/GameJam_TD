@@ -13,6 +13,7 @@ public class TowerController : MonoBehaviour
     public GameObject KepchukCloud;
 
     private GameObject projectileInstance;
+    public GameObject rangeIndicator;
 
     private float attackCountdown = 0.5f;
     // Start is called before the first frame update

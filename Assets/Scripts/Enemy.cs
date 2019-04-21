@@ -74,9 +74,15 @@ public class Enemy : MonoBehaviour
         yield return null;
     }
 
-    public void BoostSpeed()
+    public void Invul()
     {
         StartCoroutine(BoostSpeedCoroutine());
+        //GetComponent<MeshRenderer>()
+    }
+
+    public void BoostSpeed()
+    {
+        StartCoroutine(InvulnerableCoroutine());
         //GetComponent<MeshRenderer>()
     }
 
