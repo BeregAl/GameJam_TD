@@ -6,6 +6,12 @@ public class Enemy : MonoBehaviour
 {
     public float hp;
     public float speed;
+    public bool speedBoosted;
+    public bool invulnerable;
+
+    public GameObject speedBoostParticles;
+    public float invulScaleBoost;
+
 
     private Coroutine movingCor;
     // Start is called before the first frame update
@@ -77,7 +83,23 @@ public class Enemy : MonoBehaviour
     IEnumerator BoostSpeedCoroutine()
     {
         speed *= 1.5f;
+        speedBoosted = true;
+        speedBoostParticles.SetActive(true);
         yield return new WaitForSeconds(2f);
+        speedBoostParticles.SetActive(false);
+        speedBoosted = false;
         speed /= 1.5f;
+    }
+
+    IEnumerator InvulnerableCoroutine()
+    {
+        float tmp = hp;
+        hp = 99999;
+        invulnerable = true;
+        transform.localScale = transform.localScale * invulScaleBoost;
+        yield return new WaitForSeconds(2f);
+        transform.localScale = transform.localScale/invulScaleBoost;
+        invulnerable = false;
+        hp = tmp;
     }
 }

@@ -19,6 +19,7 @@ public class GameController : MonoBehaviour
     public GameObject pointsCanvas;
     public TextMeshProUGUI pointsText;
     public GameObject AbilityPoint;
+    public GameObject Ability2Point;
 
     [Header("Ссылки на основные AR объекты")]
     // Ссылки на основные AR объекты
@@ -52,6 +53,10 @@ public class GameController : MonoBehaviour
     public TextMeshProUGUI AbilityTimer;
     public int abilityCountdown = 3;
     public Coroutine abilityCoroutine;
+
+    public TextMeshProUGUI Ability2Timer;
+    public int ability2Countdown = 3;
+    public Coroutine ability2Coroutine;
 
     // Переменные для логики игры
     public Transform ghostTower;
@@ -94,8 +99,13 @@ public class GameController : MonoBehaviour
 
     public void StartWave(WaveInfo _wave)
     {
-        Debug.Log("Понеслась");
-        StartCoroutine(SpawningCoroutine());
+
+        // Если нод меньше определенного количества не идем
+        if (nodesCount < 3)
+        {
+            Debug.Log("Понеслась");
+            StartCoroutine(SpawningCoroutine());
+        }
     }
     
 
@@ -192,6 +202,33 @@ public class GameController : MonoBehaviour
             if (Vector3.Distance(AbilityPoint.transform.position, en.transform.position) < 0.8f)
             {
                 Debug.Log("Dist: " + Vector3.Distance(AbilityPoint.transform.position, en.transform.position));
+                en.GetComponent<Enemy>().BoostSpeed();
+            }
+        }
+        yield return null;
+    }
+
+    public void Ability2Run()
+    {
+        abilityCountdown = 3;
+        abilityCoroutine = StartCoroutine(Ability2Coroutine());
+    }
+
+    IEnumerator Ability2Coroutine()
+    {
+        for (int i = ability2Countdown; i > 0; i--)
+        {
+            Ability2Timer.text = i.ToString();
+            yield return new WaitForSeconds(1f);
+        }
+
+        Ability2Timer.text = "";
+        GameObject[] enemiesObjects = GameObject.FindGameObjectsWithTag("enemy");
+        foreach (var en in enemiesObjects)
+        {
+            if (Vector3.Distance(Ability2Point.transform.position, en.transform.position) < 0.8f)
+            {
+                Debug.Log("Dist: " + Vector3.Distance(Ability2Point.transform.position, en.transform.position));
                 en.GetComponent<Enemy>().BoostSpeed();
             }
         }
