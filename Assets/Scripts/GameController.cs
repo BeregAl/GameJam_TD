@@ -8,6 +8,7 @@ public class GameController : MonoBehaviour
 {
 
     public WaveInfo wave;
+    public static bool waveInProgress=false;
     public static GameController instance;
     private int _points=0;
     public bool isGameStarted = false;
@@ -136,6 +137,7 @@ public class GameController : MonoBehaviour
         if (nodesCount < 3)
         {
             Debug.Log("Понеслась");
+            StartCoroutine(WaveProgressCoroutine());
             StartCoroutine(SpawningCoroutine());
         }
     }
@@ -192,7 +194,7 @@ public class GameController : MonoBehaviour
     }
 
     IEnumerator SpawningCoroutine()
-    {
+    {        
         for (int j = 0; j < wave.waves.Length; j++)
         {
             for (int i = 0; i < wave.waves[j].amount; i++)
@@ -205,7 +207,16 @@ public class GameController : MonoBehaviour
                 yield return new WaitForSeconds(1.5f);
             }
         }
+    }
 
+    IEnumerator WaveProgressCoroutine()
+    {
+        while (GameObject.FindGameObjectWithTag("enemy")!=null)
+        {
+            waveInProgress = true;
+            yield return new WaitForSeconds(1f);
+        }
+        waveInProgress = false;
     }
 
     public void AbilityRun()
@@ -256,7 +267,7 @@ public class GameController : MonoBehaviour
             if (Vector3.Distance(Ability2Point.transform.position, en.transform.position) < 0.8f)
             {
                 Debug.Log("Dist: " + Vector3.Distance(Ability2Point.transform.position, en.transform.position));
-                en.GetComponent<Enemy>().BoostSpeed();
+                en.GetComponent<Enemy>().Invul();
             }
         }
         yield return null;
