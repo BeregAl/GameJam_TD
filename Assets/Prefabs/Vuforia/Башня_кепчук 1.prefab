@@ -17,6 +17,7 @@ MonoBehaviour:
   projectileOrigin: {fileID: 2445667449297512286}
   KepchukCloud: {fileID: 6533331543100679964, guid: 2c779c219fefa644683656e56bc1d1eb,
     type: 3}
+  rangeIndicator: {fileID: 0}
 --- !u!1 &6826741761952373103
 GameObject:
   m_ObjectHideFlags: 0
@@ -109,7 +110,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6880513485286459097
 RectTransform:
   m_ObjectHideFlags: 0
