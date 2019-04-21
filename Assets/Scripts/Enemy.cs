@@ -93,7 +93,7 @@ public class Enemy : MonoBehaviour
         speed *= 1.5f;
         speedBoosted = true;
         speedBoostParticles.SetActive(true);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(4f);
         speedBoostParticles.SetActive(false);
         speedBoosted = false;
         speed /= 1.5f;
@@ -104,9 +104,9 @@ public class Enemy : MonoBehaviour
         float tmp = hp;
         hp = 99999;
         invulnerable = true;
-        Vector3.Scale(transform.localScale, invulScaleBoost);
-        yield return new WaitForSeconds(2f);
-        Vector3.Scale(transform.localScale, invulScaleDecrease);
+        transform.localScale=Vector3.Scale(transform.localScale, invulScaleBoost);
+        yield return new WaitForSeconds(4f);
+        transform.localScale=Vector3.Scale(transform.localScale, invulScaleDecrease);
         invulnerable = false;
         hp = tmp;
     }
