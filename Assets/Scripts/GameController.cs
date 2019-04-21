@@ -97,6 +97,12 @@ public class GameController : MonoBehaviour
                 tutorialWindows[2].SetActive(false);
                 tutorialWindows[3].SetActive(true);
                 break;
+            case 4:
+                tutorialWindows[0].SetActive(false);
+                tutorialWindows[1].SetActive(false);
+                tutorialWindows[2].SetActive(false);
+                tutorialWindows[3].SetActive(false);
+                break;
 
         }
     }
@@ -146,6 +152,7 @@ public class GameController : MonoBehaviour
         {
             Debug.Log("БОЛЬШЕ НОДОВ!");
         }
+        ShowTutorialStep(4);
     }
 
     public void EndGame()
