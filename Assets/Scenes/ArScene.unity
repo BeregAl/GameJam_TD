@@ -1506,6 +1506,8 @@ MonoBehaviour:
   pointsText: {fileID: 1815691925}
   AbilityPoint: {fileID: 1403610078}
   mainTargetContainer: {fileID: 236676750}
+  startGameButton: {fileID: 644675984}
+  startWaveButton: {fileID: 43301455}
   nodesText: {fileID: 1935620888}
   towersText: {fileID: 1502092037}
   towerPrefab: {fileID: 3696246040813373384, guid: 784fdd93c8ab8bd4c91b28d69b60107c,

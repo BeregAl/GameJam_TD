@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Experimental.UIElements;
+using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
 {
@@ -25,8 +25,8 @@ public class GameController : MonoBehaviour
     public Transform mainTargetContainer;
 
     [Header("UI элементы")]
-    public Button startGameButton;
-    public Button startWaveButton;
+    public GameObject startGameButton;
+    public GameObject startWaveButton;
 
     [Header("Все остальное")]
 
@@ -61,8 +61,8 @@ public class GameController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        startWaveButton.SetEnabled(false);
-        startGameButton.SetEnabled(true);
+        startWaveButton.SetActive(false);
+        startGameButton.SetActive(true);
         //nodes.Add(Instantiate(nodePrefab));
         //nodes[0].transform.position = new Vector3(0, 0.5f, 0);
         //nodesCount++;
@@ -102,8 +102,8 @@ public class GameController : MonoBehaviour
             Vector3 rndPosition = mainBase.transform.position + new Vector3(Random.Range(-1.5f, 1.5f), -0.5f, Random.Range(-1.5f, 1.5f));
             CmdCreateTower(rndPosition);
         }
-        startGameButton.SetEnabled(false);
-        startWaveButton.SetEnabled(true);
+        startGameButton.SetActive(false);
+        startWaveButton.SetActive(true);
     }
 
     public void CmdCreateNode(Vector3 pos)
