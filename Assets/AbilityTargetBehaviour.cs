@@ -15,7 +15,8 @@ public class AbilityTargetBehaviour : MonoBehaviour, ITrackableEventHandler
     #region UNITY_MONOBEHAVIOUR_METHODS
 
     // Сохраняем ссылку на трансформ объекта на таргете
-    public Transform tower;
+    [Range(0,1)]
+    public int ability = 0;
 
     protected virtual void Start()
     {
@@ -89,7 +90,10 @@ public class AbilityTargetBehaviour : MonoBehaviour, ITrackableEventHandler
         foreach (var component in canvasComponents)
             component.enabled = true;
 
+        if(ability==0)
         GameController.instance.AbilityRun();
+        else
+        GameController.instance.Ability2Run();
     }
 
 

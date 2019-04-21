@@ -21,6 +21,7 @@ public class TowerController : MonoBehaviour
     {
         projectileInstance = Instantiate(KepchukCloud);
         projectileInstance.transform.position = projectileOrigin.position;
+        projectileInstance.SetActive(false);
         InvokeRepeating("CheckTarget",0f,0.5f);
         //InvokeRepeating("RotateToEnemy", 0f, 0.5f);
         StartCoroutine(AttackCoroutine());
@@ -28,8 +29,8 @@ public class TowerController : MonoBehaviour
 
     // Update is called once per frame
     void Update()
-    {
-        
+    {       
+
     }
 
     void RotateToEnemy()
