@@ -97,12 +97,24 @@ public class GameController : MonoBehaviour
         Debug.Log("Понеслась");
         StartCoroutine(SpawningCoroutine());
     }
+    
 
     public void StartGame()
-    {
-        for (int i = 0; i < 8; i++)
+    {/*
+        for (int i = 0; i < 15; i++)
         {
-            Vector3 rndPosition = mainBase.transform.position + new Vector3(Random.Range(-1.5f, 1.5f), -0.5f, Random.Range(-1.5f, 1.5f));
+            float Magnit = Random.Range(0, 5) / 5f;
+            float rndAngle = Random.Range(0, 6)*60f;
+            Vector3 rndPosition = mainBase.transform.position + new Vector3(Mathf.Sin(rndAngle)* Magnit, -0.3f, Mathf.Cos(rndAngle) * Magnit);
+            CmdCreateTower(rndPosition);
+        }*/
+        for (int i = 0; i < 12; i++)
+        {
+            //float Magnit = Random.Range(0, 5) / 5f;
+            //float rndAngle = Random.Range(0, 6) * 60f;
+            Vector3 rndPosition = mainBase.transform.position + new Vector3(Mathf.Sin(i * 30) * 1f, -0.3f, Mathf.Cos(i*30) * 1f);
+            CmdCreateTower(rndPosition);
+            rndPosition = mainBase.transform.position + new Vector3(Mathf.Sin(i * 30) * 2f, -0.3f, Mathf.Cos(i * 30) * 2f);
             CmdCreateTower(rndPosition);
         }
         startGameButton.SetActive(false);

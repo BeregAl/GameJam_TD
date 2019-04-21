@@ -6,7 +6,7 @@ using UnityEngine;
 public class TowerController : MonoBehaviour
 {
     public GameObject currentTarget = null;
-    public float range = 7.5f;
+    public float range = 0.5f;
     public Transform projectileOrigin;
 
 

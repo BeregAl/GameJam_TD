@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentTarget: {fileID: 0}
-  range: 7.5
+  range: 0.5
   projectileOrigin: {fileID: 2445667449297512286}
   KepchukCloud: {fileID: 6533331543100679964, guid: 2c779c219fefa644683656e56bc1d1eb,
     type: 3}

@@ -6,6 +6,7 @@ All Rights Reserved.
 Confidential and Proprietary - Protected under copyright and other laws.
 ==============================================================================*/
 using UnityEngine;
+using UnityEngine.UI;
 using Vuforia;
 
 /// <summary>
@@ -99,6 +100,7 @@ public class PotatoTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
             component.enabled = true;
 
         GameController.instance.AlignPoints();
+        GameController.instance.startGameButton.GetComponent<Button>().interactable = true;
     }
 
 
@@ -119,6 +121,9 @@ public class PotatoTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
         // Disable canvas':
         foreach (var component in canvasComponents)
             component.enabled = false;
+
+
+        GameController.instance.startGameButton.GetComponent<Button>().interactable = false;
     }
 
     #endregion // PROTECTED_METHODS
