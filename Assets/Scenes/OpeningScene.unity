@@ -959,6 +959,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e9eb85232850d0e4d831448a988bddf3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  animationName: Walk
 --- !u!1 &1397440062
 GameObject:
   m_ObjectHideFlags: 0
