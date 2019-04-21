@@ -30,6 +30,7 @@ public class GameController : MonoBehaviour
     [Header("UI элементы")]
     public GameObject startGameButton;
     public GameObject startWaveButton;
+    public GameObject setNodeButton;
     public List<GameObject> tutorialWindows;
     public GameObject roadNodeHint;
     public GameObject abilityHint;
@@ -132,13 +133,17 @@ public class GameController : MonoBehaviour
 
     public void StartWave(WaveInfo _wave)
     {
-
         // Если нод меньше определенного количества не идем
-        if (nodesCount < 3)
+        if (nodesCount > 3)
         {
             Debug.Log("Понеслась");
             StartCoroutine(WaveProgressCoroutine());
             StartCoroutine(SpawningCoroutine());
+            startWaveButton.GetComponent<Button>().interactable = false;
+        }
+        else
+        {
+            Debug.Log("БОЛЬШЕ НОДОВ!");
         }
     }
     
@@ -157,7 +162,7 @@ public class GameController : MonoBehaviour
             CmdCreateTower(rndPosition);
         }
         startGameButton.SetActive(false);
-        startWaveButton.SetActive(true);
+        setNodeButton.SetActive(true);
     }
 
     public void CmdCreateNode(Vector3 pos)
@@ -173,7 +178,6 @@ public class GameController : MonoBehaviour
         roadTmp.transform.GetChild(0).GetComponent<RectTransform>().sizeDelta = new Vector2(1.33f, Vector3.Distance(nodes[nodes.Count - 1].transform.position, nodes[nodes.Count - 2].transform.position));
         roads.Add(roadTmp);
         nodesCount++;
-        nodesText.text = "Дорог: " + (nodesCount-1).ToString();
     }
     
     public void CmdCreateTower(Vector3 towerTransformPosition)

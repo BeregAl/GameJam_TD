@@ -70,7 +70,10 @@ public class RoadNodeTrackableBehaviour : MonoBehaviour, ITrackableEventHandler
     protected virtual void OnTrackingFound()
     {
         // Инициализиурем дорожку епт
-        NodeRoadController.instance.DisplayGhostNodeRoad(roadNode);
+        if (GameController.instance.nodesCount < 2)
+        {
+            NodeRoadController.instance.DisplayGhostNodeRoad(roadNode);
+        }
 
         var rendererComponents = GetComponentsInChildren<Renderer>(true);
         var colliderComponents = GetComponentsInChildren<Collider>(true);
