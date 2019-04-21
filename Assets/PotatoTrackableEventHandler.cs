@@ -101,6 +101,8 @@ public class PotatoTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 
         GameController.instance.AlignPoints();
         GameController.instance.startGameButton.GetComponent<Button>().interactable = true;
+
+        GameController.instance.ShowTutorialStep(1);
     }
 
 
@@ -124,6 +126,7 @@ public class PotatoTrackableEventHandler : MonoBehaviour, ITrackableEventHandler
 
 
         GameController.instance.startGameButton.GetComponent<Button>().interactable = false;
+        GameController.instance.ShowTutorialStep(0);
     }
 
     #endregion // PROTECTED_METHODS
