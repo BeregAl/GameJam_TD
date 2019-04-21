@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class GameController : MonoBehaviour
@@ -31,6 +32,7 @@ public class GameController : MonoBehaviour
     public GameObject startGameButton;
     public GameObject startWaveButton;
     public GameObject setNodeButton;
+    public GameObject endGameButton;
     public List<GameObject> tutorialWindows;
     public GameObject roadNodeHint;
     public GameObject abilityHint;
@@ -137,7 +139,6 @@ public class GameController : MonoBehaviour
         if (nodesCount > 3)
         {
             Debug.Log("Понеслась");
-            StartCoroutine(WaveProgressCoroutine());
             StartCoroutine(SpawningCoroutine());
             startWaveButton.GetComponent<Button>().interactable = false;
         }
@@ -146,7 +147,11 @@ public class GameController : MonoBehaviour
             Debug.Log("БОЛЬШЕ НОДОВ!");
         }
     }
-    
+
+    public void EndGame()
+    {
+        SceneManager.LoadScene("VictoryScene");
+    }
 
     public void StartGame()
     {
@@ -211,16 +216,22 @@ public class GameController : MonoBehaviour
                 yield return new WaitForSeconds(1.5f);
             }
         }
+        StartCoroutine(WaveProgressCoroutine());
     }
 
     IEnumerator WaveProgressCoroutine()
     {
+        Debug.Log("***Checking");
         while (GameObject.FindGameObjectWithTag("enemy")!=null)
         {
+            int am = GameObject.FindGameObjectsWithTag("enemy").Length;
+            Debug.Log("***Enemies: " + am);
+
             waveInProgress = true;
             yield return new WaitForSeconds(1f);
         }
         waveInProgress = false;
+        endGameButton.SetActive(true);
     }
 
     public void AbilityRun()

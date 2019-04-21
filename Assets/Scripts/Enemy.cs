@@ -52,7 +52,7 @@ public class Enemy : MonoBehaviour
     {
         GetComponent<Animator>().Play("Walk");
         int countdown = nodes.Count - 1;
-        Debug.Log("cd: " + countdown);
+        //Debug.Log("cd: " + countdown);
         while (countdown > 0)
         {
            // Debug.Log("prev: " + transform.position);
@@ -66,13 +66,14 @@ public class Enemy : MonoBehaviour
                 transform.Translate(Vector3.forward * speed * Time.deltaTime);
                 yield return null;
             }
-            Debug.Log("after: " + transform.position);
+            //Debug.Log("after: " + transform.position);
 
             countdown--;
         }
 
         GameController.instance.Points += 1;
         yield return null;
+        DestroyIt();
     }
 
     public void Invul()
