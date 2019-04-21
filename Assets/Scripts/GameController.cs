@@ -8,11 +8,16 @@ public class GameController : MonoBehaviour
 
     public WaveInfo wave;
     public static GameController instance;
+    private int _points=0;
 
     [Header("Ссылки на основные игровые объекты")]
     // Ссылки на основные игровые объекты   
     public GameObject mainBase;   
     public GameObject mainRoadNode;
+    public Transform cameraTransform;
+    public GameObject pointsCanvas;
+    public TextMeshProUGUI pointsText;
+    public GameObject AbilityPoint;
 
     [Header("Ссылки на основные AR объекты")]
     // Ссылки на основные AR объекты
@@ -147,10 +152,43 @@ public class GameController : MonoBehaviour
             yield return new WaitForSeconds(1f);
         }
 
+        AbilityTimer.text = "";
+        GameObject[] enemiesObjects = GameObject.FindGameObjectsWithTag("enemy");
+        foreach (var en in enemiesObjects)
+        {
+            Debug.Log("Dist: "+ Vector3.Distance(AbilityPoint.transform.position, en.transform.position));
+            if (Vector3.Distance(AbilityPoint.transform.position, en.transform.position) < 1.5f)
+            {
+                en.GetComponent<Enemy>().BoostSpeed();
+            }
+        }
         yield return null;
 
     }
-    
+
+    public void AlignPoints()
+    {
+       // Debug.Log("Align points");
+        StartCoroutine(AlignPointsToCameraCoroutine());
+    }
+
+    IEnumerator AlignPointsToCameraCoroutine()
+    {
+        while (true)
+        {
+            pointsCanvas.transform.LookAt(cameraTransform.position);
+            yield return new WaitForSeconds(0.3f);
+        }
+    }
 
 
+    public int Points
+    {
+        get { return _points; }
+        set
+        {
+            _points = value;
+            pointsText.text = _points.ToString();
+        }
+    }
 }

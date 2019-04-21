@@ -63,8 +63,21 @@ public class Enemy : MonoBehaviour
 
             countdown--;
         }
+
+        GameController.instance.Points += 1;
         yield return null;
     }
 
+    public void BoostSpeed()
+    {
+        StartCoroutine(BoostSpeedCoroutine());
+        //GetComponent<MeshRenderer>()
+    }
 
+    IEnumerator BoostSpeedCoroutine()
+    {
+        speed += 2;
+        yield return new WaitForSeconds(2f);
+        speed -= 2;
+    }
 }
