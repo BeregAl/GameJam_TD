@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class NodeRoadController : MonoBehaviour {
 
@@ -37,7 +38,7 @@ public class NodeRoadController : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
+        /*
         if (Input.touchCount>0 )
         {
             if (ghostNode != null)
@@ -54,15 +55,22 @@ public class NodeRoadController : MonoBehaviour {
                 Debug.Log("FinalizingNode");
                 FinalizeNode();
             }
-        }
+        }*/
 
     }   
 
     public void FinalizeNode()
     {
         GameController.instance.nodesCount++;
-        //Destroy(ghostRoad);
-        GameObject finalizedNode = Instantiate(GameController.instance.nodePrefab, GameController.instance.mainTargetContainer);
+        GameController.instance.nodesText.text = "Дорог: " + GameController.instance.nodesCount.ToString();
+        if (GameController.instance.nodesCount > 3)
+        {
+            GameController.instance.startWaveButton.SetActive(true);
+            GameController.instance.setNodeButton.SetActive(false);
+            GameController.instance.startWaveButton.GetComponent<Button>().interactable = true;
+        }
+       //Destroy(ghostRoad);
+       GameObject finalizedNode = Instantiate(GameController.instance.nodePrefab, GameController.instance.mainTargetContainer);
         finalizedNode.transform.position = ghostNode.position;        
         //ghostNode.transform.SetParent(GameController.instance.mainTargetImage);       
         GameController.instance.nodes.Add(finalizedNode);
