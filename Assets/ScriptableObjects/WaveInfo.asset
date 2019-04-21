@@ -14,8 +14,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   waves:
   - hi: {fileID: 11400000, guid: ae571a9c0ffecb74ca65e809043d6dbd, type: 2}
-    amount: 5
+    amount: 20
   - hi: {fileID: 11400000, guid: aec4f46378a1f3f4abfdc2d103451385, type: 2}
-    amount: 5
+    amount: 20
   - hi: {fileID: 0}
     amount: 0

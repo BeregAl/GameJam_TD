@@ -150,6 +150,7 @@ public class GameController : MonoBehaviour
 
     public void EndGame()
     {
+        PlayerPrefs.SetInt("pts", Points);
         SceneManager.LoadScene("VictoryScene");
     }
 
@@ -157,13 +158,13 @@ public class GameController : MonoBehaviour
     {
         isGameStarted = true;
         ShowTutorialStep(2);
-        for (int i = 0; i < 12; i++)
+        for (int i = 0; i < 8; i++)
         {
             //float Magnit = Random.Range(0, 5) / 5f;
             //float rndAngle = Random.Range(0, 6) * 60f;
-            Vector3 rndPosition = mainBase.transform.position + new Vector3(Mathf.Sin(i * 30) * 1f, -0.3f, Mathf.Cos(i*30) * 1f);
+            Vector3 rndPosition = mainBase.transform.position + new Vector3(Mathf.Sin(i * 45) * 1f, -0.3f, Mathf.Cos(i*45) * 1f);
             CmdCreateTower(rndPosition);
-            rndPosition = mainBase.transform.position + new Vector3(Mathf.Sin(i * 30) * 2f, -0.3f, Mathf.Cos(i * 30) * 2f);
+            rndPosition = mainBase.transform.position + new Vector3(Mathf.Sin(i * 45) * 2f, -0.3f, Mathf.Cos(i * 45) * 2f);
             CmdCreateTower(rndPosition);
         }
         startGameButton.SetActive(false);

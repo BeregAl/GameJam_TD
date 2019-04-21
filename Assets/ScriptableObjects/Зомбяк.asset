@@ -15,4 +15,4 @@ MonoBehaviour:
   humanName: "\u0437\u043E\u043C\u0431\u044F\u043A"
   health: 2
   speed: 0.5
-  humanPrefab: {fileID: 100082, guid: 819531b6a47a99947b9e84df2d0181a9, type: 3}
+  humanPrefab: {fileID: 100082, guid: 99de8cfee94c54947a482aad40801b21, type: 3}
